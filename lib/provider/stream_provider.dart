@@ -1,4 +1,4 @@
-class StreamProvider{
+class ProvidStream{
 
   bool isAnimating = true;
 
