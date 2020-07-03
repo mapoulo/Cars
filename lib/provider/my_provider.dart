@@ -1,4 +1,3 @@
-import 'package:cars/model/car_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class DataProvider with ChangeNotifier{
@@ -10,11 +9,9 @@ class DataProvider with ChangeNotifier{
     notifyListeners();
   }
 
-
   int getIndex(){
     return _selectedCarIndex;
   }
 
- 
 
 }

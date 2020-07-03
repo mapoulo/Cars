@@ -178,12 +178,13 @@ class _CarImagesState extends State<CarImages> with TickerProviderStateMixin {
                   SizedBox(height: 10),
                   Consumer<DataProvider>(
                     builder: (context, data, child) {
-                      print("data here is : " + carImages.toString());
-
                       return GestureDetector(
                         onTap: () {
+                          print(cars[data.getIndex()].description);
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CarDisplay()));
+                              builder: (context) => CarDisplay(
+                                obj: cars[data.getIndex()],
+                              )));
                         },
                         child: Hero(
                           tag: "tag" + data.getIndex().toString(),
