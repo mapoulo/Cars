@@ -91,66 +91,66 @@ class _CarDisplayState extends State<CarDisplay> {
               ],
             ),
           ),
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 18, 18, 18),
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 15),
-                      Center(
-                        child: Container(
-                          child: Text(
-                            "Features",
-                            style: TextStyle(color: Colors.grey, fontSize: 25),
-                          ),
-                        ),
-                      ),
+          // Expanded(
+          //   child: Stack(
+          //     children: <Widget>[
+          //       Container(
+          //         height: MediaQuery.of(context).size.height,
+          //         width: MediaQuery.of(context).size.width,
+          //         decoration: BoxDecoration(
+          //           color: Color.fromARGB(255, 18, 18, 18),
+          //         ),
+          //         child: Column(
+          //           children: <Widget>[
+          //             SizedBox(height: 15),
+          //             Center(
+          //               child: Container(
+          //                 child: Text(
+          //                   "Features",
+          //                   style: TextStyle(color: Colors.grey, fontSize: 25),
+          //                 ),
+          //               ),
+          //             ),
 
-                    SizedBox(height: 10),
-                    ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 8,
-                      itemBuilder: (context, index){
-                        return Container(
-                          height: 150,
-                          width: 70,
-                          color: Colors.white,
-                          margin: EdgeInsets.all(5),
-                        );
-                      })
-                    ],
-                  ),
-                ),
-                Align(
-                    alignment: Alignment.bottomRight,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 40,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 41, 41, 41),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25))),
-                        child: Center(
-                            child: Text(
-                          "Rent",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        )),
-                      ),
-                    ))
-              ],
-            ),
-          )
+          //           SizedBox(height: 10),
+          //           ListView.builder(
+          //             scrollDirection: Axis.horizontal,
+          //             itemCount: 8,
+          //             itemBuilder: (context, index){
+          //               return Container(
+          //                 height: 150,
+          //                 width: 70,
+          //                 color: Colors.white,
+          //                 margin: EdgeInsets.all(5),
+          //               );
+          //             })
+          //           ],
+          //         ),
+          //       ),
+          //       Align(
+          //           alignment: Alignment.bottomRight,
+          //           child: GestureDetector(
+          //             onTap: () {},
+          //             child: Container(
+          //               height: 40,
+          //               width: 100,
+          //               decoration: BoxDecoration(
+          //                   color: Color.fromARGB(255, 41, 41, 41),
+          //                   borderRadius: BorderRadius.only(
+          //                       topLeft: Radius.circular(25))),
+          //               child: Center(
+          //                   child: Text(
+          //                 "Rent",
+          //                 style: TextStyle(
+          //                   color: Colors.white,
+          //                   fontSize: 20,
+          //                 ),
+          //               )),
+          //             ),
+          //           ))
+          //     ],
+          //   ),
+          // )
         ],
       ),
     );

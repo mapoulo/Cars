@@ -15,7 +15,63 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
-          create: (context) => DataProvider(), child: MainApp()),
+          create: (context) => DataProvider(), child: CustomDrawer()),
+    );
+  }
+}
+
+
+class CustomDrawer extends StatefulWidget {
+  @override
+  _CustomDrawerState createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> with SingleTickerProviderStateMixin{
+
+  AnimationController controller;
+  double maxSlide = 150.0;
+
+  void initState(){
+  controller = AnimationController(duration: Duration(seconds: 2), vsync: this);
+    super.initState();
+  }
+
+  void toggleAnimation(){
+    if(controller.isDismissed){
+      controller.forward();
+    }else{
+      controller.reverse();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+   
+   var parentContainer = MainApp();
+   var childContainer = Container(color: Colors.white);
+
+    return GestureDetector(
+      onTap: (){
+        toggleAnimation();
+      },
+
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (context, _){
+          double scale = 1-(controller.value * 0.3);
+          double translate = maxSlide * controller.value;
+          return Stack(
+            children: <Widget>[
+              
+              childContainer,
+              Transform(
+                transform: Matrix4.identity()..translate(translate)..scale(scale),
+                child: parentContainer,
+                alignment: Alignment.centerRight,
+              )
+            ],
+          );
+        })
     );
   }
 }
@@ -137,6 +193,11 @@ class _CarImagesState extends State<CarImages> with TickerProviderStateMixin {
                 ],
               )
             ],
+
+            leading: Container(
+              child: Icon(Icons.menu),
+            ),
+            
           ),
           body: ScaleTransition(
             scale: scaleController,
@@ -180,7 +241,7 @@ class _CarImagesState extends State<CarImages> with TickerProviderStateMixin {
                     builder: (context, data, child) {
                       return GestureDetector(
                         onTap: () {
-                          print(cars[data.getIndex()].description);
+                          print(cars[data.getIndex()].carImage);
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => CarDisplay(
                                 obj: cars[data.getIndex()],
