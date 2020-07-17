@@ -1,87 +1,81 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cars/model/car_model.dart';
-import 'package:cars/provider/animation_status.dart';
-import 'package:cars/provider/my_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CarDetails extends StatefulWidget {
+
+class CarCarousel extends StatefulWidget {
   @override
-  _CarDetailsState createState() => _CarDetailsState();
+  _CarCarouselState createState() => _CarCarouselState();
 }
 
-class _CarDetailsState extends State<CarDetails>
-    with SingleTickerProviderStateMixin {
-  double topSheet = 100;
-  double minSheet = 351;
+class _CarCarouselState extends State<CarCarousel> with TickerProviderStateMixin {
+
   AnimationController scaleController;
-  Animation animation;
+  AnimationController fadeController;
+
+  Animation scaleAnimation;
+  Animation  fadeAnimation;
 
   @override
   void initState() {
-    scaleController =
-        AnimationController(duration: Duration(seconds: 2), vsync: this);
-    animation = Tween<double>(begin: minSheet, end: topSheet).animate(
-        CurvedAnimation(
-            parent: scaleController,
-            curve: Curves.easeIn,
-            reverseCurve: Curves.easeIn))
-      ..addListener(() {
-        setState(() {});
-      });
+    scaleController = AnimationController(duration: Duration(milliseconds: 400), vsync: this);
+    fadeController = AnimationController(duration: Duration(milliseconds: 400), vsync: this);
 
+    scaleAnimation = Tween<double>(begin: 0.0, end:1.0).animate(CurvedAnimation(parent: scaleController, curve: Curves.easeIn, reverseCurve: Curves.easeIn));
+
+    fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(fadeController);
+    
     super.initState();
-  }
-
-  forward() {
-    scaleController.forward();
-    state.toggleAnimationStatus();
-  }
-
-  reverse() {
-    scaleController.reverse();
-    state.toggleAnimationStatus();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-        top: animation.value,
-        child: GestureDetector(
-          onTap: () {
-            scaleController.isCompleted ? reverse() : forward();
-          },
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 18, 18, 18),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35),
-                    topRight: Radius.circular(35))),
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 15),
-                Container(
-                  height: 4,
-                  width: 100,
-                  color: Color.fromARGB(255, 41, 41, 41),
-                ),
-                Consumer<DataProvider>(builder: (context, data, child) {
-                  return Expanded(
-                    child: SingleChildScrollView(
-                      child: Container(
-                        padding: EdgeInsets.all(40),
-                        child: Text(
-                          carList[data.getIndex()].description,
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ),
-                    ),
-                  );
-                })
-              ],
-            ),
+    
+     final List<CarModel> cars = Provider.of<List<CarModel>>(context) ?? [];
+
+     cars.forEach((element) {
+       print(element.carName);
+     });
+   
+     List<T> _map<T>(List list, Function handler){
+      List<T> results = [];
+      for(int i=0; i<list.length; i++){
+       results.add(handler(i, list[i].carImage));
+      }
+      return results;
+     }
+
+     List<Widget> carImageList = _map<Widget>(cars, (index, image){
+       return Container(
+         height: 250,
+         width: MediaQuery.of(context).size.width,
+         decoration: BoxDecoration(
+           image: DecorationImage(
+             image: AssetImage(image),
+             fit: BoxFit.cover
+           )
+         ),
+       );
+     });
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: Container(
+          child: GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back),
           ),
-        ));
+        ),
+      ),
+
+      body: Column(
+        children: <Widget>[
+          CarouselSlider(items: carImageList)
+        ],
+      ),
+    );
   }
 }
