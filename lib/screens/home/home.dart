@@ -1,5 +1,5 @@
 import 'package:cars/model/car_model.dart';
-import 'package:cars/screens/home/car_details.dart';
+import 'package:cars/screens/home/car_carousel.dart';
 import 'package:cars/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
