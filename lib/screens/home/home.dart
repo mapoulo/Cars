@@ -1,5 +1,4 @@
-import 'package:cars/model/car_model.dart';
-import 'package:cars/screens/home/car_carousel.dart';
+import 'package:cars/screens/home/custom_drawer.dart';
 import 'package:cars/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +17,8 @@ class _HomeState extends State<Home> {
        child: Scaffold(
          body: Stack(
            children: <Widget>[
-             CarCarousel(),
+             CustomDrawer(),
+            
            ],
          )
        ),

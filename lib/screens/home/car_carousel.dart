@@ -1,6 +1,6 @@
-import 'package:cars/bloc/blocState.dart';
 import 'package:cars/bloc/bloc_provider.dart';
 import 'package:cars/model/car_model.dart';
+import 'package:cars/screens/home/car_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,35 +61,32 @@ class _CarCarouselState extends State<CarCarousel>
               return ScaleTransition(
                 scale: scaleController,
                 child: Column(
-                  
                   children: <Widget>[
                     SafeArea(
                       child: Container(
-                        height: 40,
+                        height: 45,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Icon(Icons.menu, color: Colors.grey),
-                            ),   
-
-                        Align(
-                              alignment: Alignment.centerRight,
-                              child: Container(
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.grey
-                                ),
-                              )
-                            ),  
+                            ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  margin: EdgeInsets.only(right: 5, top: 5),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: Colors.grey),
+                                )),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 14),
                     Align(
                         alignment: Alignment.centerLeft,
                         child: RichText(
@@ -114,23 +111,23 @@ class _CarCarouselState extends State<CarCarousel>
                         width: 250,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            color: Colors.grey),
+                            color: Color.fromARGB(255, 195, 199, 202)),
                       ),
                     ),
                     SizedBox(height: 15),
                     Container(
-                      height: 80,
+                      height: 75,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: 10,
                           itemBuilder: (context, index) {
                             return Container(
-                              height: 15,
-                              width: 50,
+                              height: 10,
+                              width: 40,
                               margin: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Colors.grey),
+                                  color: Color.fromARGB(255, 195, 199, 202)),
                             );
                           }),
                     ),
@@ -147,18 +144,23 @@ class _CarCarouselState extends State<CarCarousel>
                       ),
                     ),
                     Container(
-                      height: 30,
+                      height: 35,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: carList.length,
                           itemBuilder: (context, index) {
                             return Container(
-                              height: 6,
+                              padding: EdgeInsets.all(5),
+                              // height: 40,
                               margin: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  color: Colors.grey),
-                              child: Center(child: Text(carList[index])),
+                                  color: Color.fromARGB(255, 195, 199, 202)),
+                              child: Center(
+                                  child: Text(
+                                carList[index],
+                                style: TextStyle(color: Colors.white),
+                              )),
                             );
                           }),
                     ),
@@ -168,15 +170,44 @@ class _CarCarouselState extends State<CarCarousel>
                           scrollDirection: Axis.horizontal,
                           itemCount: cars.length,
                           itemBuilder: (context, index) {
-                            return Container(
-                              height: 250,
-                              width: 200,
-                              margin: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 95, 98, 95),
+                            return GestureDetector(
+                              onTap: (){
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => CarDetails()
+                                ));
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Container(
+                                    height: 250,
+                                    width: 200,
+                                    margin: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 95, 98, 95),
+                                    ),
+                                    child: Image.network(cars[index].carImage,
+                                        fit: BoxFit.fitWidth),
+                                  ),
+                                  Positioned(
+                                      top: 159,
+                                      left: 140,
+                                      child: Container(
+                                        height: 30,
+                                        width: 70,
+                                        padding: EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            color:
+                                                Color.fromARGB(255, 95, 98, 95),
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(25))),
+                                        child: Center(
+                                            child: Text(
+                                          "View",
+                                          style: TextStyle(color: Colors.white),
+                                        )),
+                                      ))
+                                ],
                               ),
-                              child: Image.network(cars[index].carImage,
-                                  fit: BoxFit.fitWidth),
                             );
                           }),
                     )
